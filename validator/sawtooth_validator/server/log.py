@@ -74,18 +74,22 @@ def log_configuration(log_config=None, log_dir=None, name=None):
     if log_config is not None:
         logging.config.dictConfig(log_config)
     else:
-        log_filename = os.path.join(log_dir, name)
-        debug_handler = logging.FileHandler(log_filename + "-debug.log")
-        debug_handler.setFormatter(logging.Formatter(
-            '[%(asctime)s.%(msecs)03d [%(threadName)s] %(module)s'
-            ' %(levelname)s] %(message)s', "%H:%M:%S"))
-        debug_handler.setLevel(logging.DEBUG)
+        try:
+            log_filename = os.path.join(log_dir, name)
+            debug_handler = logging.FileHandler(log_filename + "-debug.log")
+            debug_handler.setFormatter(logging.Formatter(
+                '[%(asctime)s.%(msecs)03d [%(threadName)s] %(module)s'
+                ' %(levelname)s] %(message)s', "%H:%M:%S"))
+            debug_handler.setLevel(logging.DEBUG)
 
-        error_handler = logging.FileHandler(log_filename + "-error.log")
-        error_handler.setFormatter(logging.Formatter(
-            '[%(asctime)s.%(msecs)03d [%(threadName)s] %(module)s'
-            ' %(levelname)s] %(message)s', "%H:%M:%S"))
-        error_handler.setLevel(logging.ERROR)
+            error_handler = logging.FileHandler(log_filename + "-error.log")
+            error_handler.setFormatter(logging.Formatter(
+                '[%(asctime)s.%(msecs)03d [%(threadName)s] %(module)s'
+                ' %(levelname)s] %(message)s', "%H:%M:%S"))
+            error_handler.setLevel(logging.ERROR)
+        except IOError as e:
+            print("Error: {}".format(str(e)))
+            sys.exit(1)
 
         logging.getLogger().addHandler(error_handler)
         logging.getLogger().addHandler(debug_handler)
