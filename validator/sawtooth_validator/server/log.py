@@ -19,6 +19,7 @@ import sys
 import os
 
 from colorlog import ColoredFormatter
+from sawtooth_validator.exceptions import LocalConfigurationError
 
 
 class LogWriter(object):
@@ -88,8 +89,7 @@ def log_configuration(log_config=None, log_dir=None, name=None):
                 ' %(levelname)s] %(message)s', "%H:%M:%S"))
             error_handler.setLevel(logging.ERROR)
         except IOError as e:
-            print("Error: {}".format(str(e)))
-            sys.exit(1)
+            raise LocalConfigurationError("Error: {}".format(str(e)))
 
         logging.getLogger().addHandler(error_handler)
         logging.getLogger().addHandler(debug_handler)
