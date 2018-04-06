@@ -244,7 +244,7 @@ def main(args=None):
     try:
         log_configuration(log_dir=path_config.log_dir,
                           name="validator")
-    except LocalConfigurationError as e:
+    except LocalConfigurationError as local_config_err:
         LOGGER.error(str(local_config_err))
         sys.exit(1)
 
