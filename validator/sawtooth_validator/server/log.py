@@ -18,6 +18,7 @@ import logging.config
 import sys
 import os
 
+
 from colorlog import ColoredFormatter
 from sawtooth_validator.exceptions import LocalConfigurationError
 
