@@ -22,6 +22,7 @@ from colorlog import ColoredFormatter
 from sawtooth_validator.exceptions import LocalConfigurationError
 
 
+
 class LogWriter(object):
     def __init__(self, logger, level):
         self.logger = logger
